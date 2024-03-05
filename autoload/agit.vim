@@ -66,8 +66,8 @@ function! agit#launch(args)
     let git.views = parsed_args.preset
     if g:agit_reuse_tab
       for t in range(1, tabpagenr('$'))
-        let tabgit = gettabvar(t, 'git', {})
-        if tabgit != {} && git.git_root ==# tabgit.git_root
+        let tabgit = gettabvar(t, 'git')
+        if !empty(tabgit) && git.git_root ==# tabgit.git_root
         \ && git.views == tabgit.views && (git.views[0].name !=# 'filelog' || git.filepath == tabgit.filepath)
           execute 'tabnext ' . t
           call agit#reload()
